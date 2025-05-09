@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block conteudo %}
+<h2>Catálogo de Livros</h2>
+<table>
+    <tr>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Ano</th>
+        <th>Status</th>
+        <th>Devolver até</th>
+        <th>Multa</th>
+        <th>Ações</th>
+    </tr>
+    {% for livro in livros %}
+    <tr>
+        <td>{{ livro.titulo }}</td>
+        <td>{{ livro.autor }}</td>
+        <td>{{ livro.ano }}</td>
+        <td>{{ "Emprestado" if livro.emprestado else "Disponível" }}</td>
+        <td>{{ livro.devolver }}</td>
+        <td>R${{ "%.2f"|format(livro.multa) }}</td>
+        <td>
+            <a href="/editar_livro/{{ livro.codigo }}">Editar</a> |
+            {% if not livro.emprestado %}
+                <a href="/emprestar/{{ livro.codigo }}">Emprestar</a>
+            {% else %}
+                <a href="/devolver/{{ livro.codigo }}">Devolver</a>
+            {% endif %}
+            |
+            <a href="/apagar_livro/{{ livro.codigo }}">Excluir</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

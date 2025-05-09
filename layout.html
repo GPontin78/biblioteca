@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Biblioteca</h1>
+    <nav>
+        <a href="/">Início</a> |
+        <a href="/catalogo">Catálogo</a> |
+        <a href="/adicionar_livro">Adicionar Livro</a>
+    </nav>
+    <hr>
+    {% with mensagens = get_flashed_messages() %}
+      {% if mensagens %}
+        <ul style="color: green;">
+          {% for mensagem in mensagens %}
+            <li>{{ mensagem }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block conteudo %}{% endblock %}
+</body>
+</html>
